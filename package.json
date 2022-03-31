@@ -1,0 +1,36 @@
+{
+    "name": "kdoc",
+    "displayName": "KDoc Syntax",
+    "publisher": "chmn-oh",
+    "repository": "https://github.com/chmnoh/kdoc-vscode",
+    "description": "Syntax highlighting for KDoc",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.60.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "kdoc",
+                "aliases": [
+                    "k-doc",
+                    "k documentation system"
+                ],
+                "extensions": [
+                    ".kdoc"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "kdoc",
+                "scopeName": "text.html.kdoc",
+                "path": "./syntaxes/kdoc.tmLanguage.json"
+            }
+        ]
+    }
+}

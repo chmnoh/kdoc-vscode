@@ -1,0 +1,221 @@
+# [PackageDev] target_format: plist, ext: tmLanguage
+---
+name: KDoc
+scopeName: text.html.kdoc
+fileTypes: [kdoc]
+uuid: B3ED19D0-B0F3-11EC-B909-0242AC120002
+
+patterns:
+    - 
+        match: (^(\@)title)\s+
+        captures:
+            '1': { name: keyword.other.documentation.title.kdoc }
+    -
+        begin: (^(\/\*\*)\s+(doc))
+        beginCaptures:
+            '1': { name: punctuation.definition.comment.begin.kdoc }
+            '2': { name: keyword.other.documentation.start.kdoc }
+        contentName: text.html
+        end: (^\*\*\/)
+        endCaptures:
+            '1': { name: keyword.other.documentation.end.kdoc }
+        name: comment.block.documentation.kdoc
+        patterns:
+            -
+                include: '#inline'
+            -
+                begin: ((\@)level)
+                beginCaptures:
+                    '1': {name: keyword.other.documentation.level.kdoc}
+                    '2': {name: punctuation.definition.keyword.kdoc}
+                end: '(?=$)'
+                name: meta.documentation.tag.level.kdoc
+                patterns:
+                    - {include: '#inline'}
+            -
+                begin: ((\@)title)
+                beginCaptures:
+                    '1': {name: keyword.other.documentation.title.kdoc}
+                    '2': {name: punctuation.definition.keyword.kdoc}
+                end: '(?=$)'
+                name: meta.documentation.tag.title.kdoc
+                patterns:
+                    - {include: '#inline'}
+            -
+                begin: (^\s*\*+)\s
+                beginCaptures:
+                    '1': {name: markup.list.unnumbered.kdoc}
+                end: '(?=\s)'
+                name: meta.documentation.tag.bullet.kdoc
+                patterns:
+                    - {include: '#inline'}
+            -
+                begin: ((\@)exception)
+                beginCaptures:
+                    '1': {name: keyword.other.documentation.exception.kdoc}
+                    '2': {name: punctuation.definition.keyword.kdoc}
+                end: '(?=^\s*\*?\s*@|\*/)'
+                name: meta.documentation.tag.exception.kdoc
+                patterns:
+                    - {include: '#inline'}
+            -
+                begin: ((\@)author)
+                beginCaptures:
+                    '1': {name: keyword.other.documentation.author.kdoc}
+                    '2': {name: punctuation.definition.keyword.kdoc}
+                end: '(?=^\s*\*?\s*@|\*/)'
+                name: meta.documentation.tag.author.kdoc
+                patterns:
+                    - {include: '#inline'}
+            -
+                begin: ((\@)version)
+                beginCaptures:
+                    '1': {name: keyword.other.documentation.version.kdoc}
+                    '2': {name: punctuation.definition.keyword.kdoc}
+                end: '(?=^\s*\*?\s*@|\*/)'
+                name: meta.documentation.tag.version.kdoc
+                patterns:
+                    - {include: '#inline'}
+            -
+                begin: ((\@)see)
+                beginCaptures:
+                    '1': {name: keyword.other.documentation.see.kdoc}
+                    '2': {name: punctuation.definition.keyword.kdoc}
+                end: '(?=^\s*\*?\s*@|\*/)'
+                name: meta.documentation.tag.see.kdoc
+                patterns:
+                    - {include: '#inline'}
+            -
+                begin: ((\@)since)
+                beginCaptures:
+                    '1': {name: keyword.other.documentation.since.kdoc}
+                    '2': {name: punctuation.definition.keyword.kdoc}
+                end: '(?=^\s*\*?\s*@|\*/)'
+                name: meta.documentation.tag.since.kdoc
+                patterns:
+                    - {include: '#inline'}
+            -
+                begin: ((\@)serial)
+                beginCaptures:
+                    '1': {name: keyword.other.documentation.serial.kdoc}
+                    '2': {name: punctuation.definition.keyword.kdoc}
+                end: '(?=^\s*\*?\s*@|\*/)'
+                name: meta.documentation.tag.serial.kdoc
+                patterns:
+                    - {include: '#inline'}
+            -
+                begin: ((\@)serialField)
+                beginCaptures:
+                    '1': {name: keyword.other.documentation.serialField.kdoc}
+                    '2': {name: punctuation.definition.keyword.kdoc}
+                end: '(?=^\s*\*?\s*@|\*/)'
+                name: meta.documentation.tag.serialField.kdoc
+                patterns:
+                    - {include: '#inline'}
+            -
+                begin: ((\@)serialData)
+                beginCaptures:
+                    '1': {name: keyword.other.documentation.serialData.kdoc}
+                    '2': {name: punctuation.definition.keyword.kdoc}
+                end: '(?=^\s*\*?\s*@|\*/)'
+                name: meta.documentation.tag.serialData.kdoc
+                patterns:
+                    - {include: '#inline'}
+            -
+                begin: ((\@)deprecated)
+                beginCaptures:
+                    '1': {name: keyword.other.documentation.deprecated.kdoc}
+                    '2': {name: punctuation.definition.keyword.kdoc}
+                end: '(?=^\s*\*?\s*@|\*/)'
+                name: meta.documentation.tag.deprecated.kdoc
+                patterns:
+                    - {include: '#inline'}
+            -
+                captures:
+                    '1': {name: keyword.other.documentation.custom.kdoc}
+                    '2': {name: punctuation.definition.keyword.kdoc}
+                match: ((\@)\S+)\s
+repository:
+    inline:
+        patterns:
+            -
+                include: '#inline-formatting'
+            -
+                comment: "This prevents < characters in commented source from starting\r\n\t\t\t\t\t\t\t\ta tag that will not end. List of allowed tags taken from\r\n\t\t\t\t\t\t\t\tjava checkstyle."
+                match: '<(?!(a|abbr|acronym|address|area|b|bdo|big|blockquote|br|caption|cite|code|colgroup|dd|del|div|dfn|dl|dt|em|fieldset|font|h1toh6|hr|i|img|ins|kbd|li|ol|p|pre|q|samp|small|span|strong|sub|sup|table|tbody|td|tfoot|th|thread|tr|tt|u|ul)\b[^>]*>)'
+            -
+                include: text.html.basic
+            -
+                match: '((https?|s?ftp|ftps|file|smb|afp|nfs|(x-)?man|gopher|txmt)://|mailto:)[-:@a-zA-Z0-9_.,~%+/?=&#;]+(?<![-.,?:#;])'
+                name: markup.underline.link
+    inline-formatting:
+        patterns:
+            -
+                begin: '(\{)((\@)code)'
+                beginCaptures:
+                    '1': {name: punctuation.definition.tag.begin.kdoc}
+                    '2': {name: keyword.other.documentation.directive.code.kdoc}
+                    '3': {name: punctuation.definition.keyword.kdoc}
+                contentName: markup.raw.code.kdoc
+                end: '\}'
+                endCaptures:
+                    '0': {name: punctuation.definition.tag.end.kdoc}
+                name: meta.tag.template.code.kdoc
+                patterns: []
+            -
+                begin: '(\{)((\@)literal)'
+                beginCaptures:
+                    '1': {name: punctuation.definition.tag.begin.kdoc}
+                    '2': {name: keyword.other.documentation.directive.literal.kdoc}
+                    '3': {name: punctuation.definition.keyword.kdoc}
+                contentName: markup.raw.literal.kdoc
+                end: '\}'
+                endCaptures:
+                    '0': {name: punctuation.definition.tag.end.kdoc}
+                name: meta.tag.template.literal.kdoc
+                patterns: []
+            -
+                captures:
+                    '1': {name: punctuation.definition.tag.begin.kdoc}
+                    '2': {name: keyword.other.documentation.directive.docRoot.kdoc}
+                    '3': {name: punctuation.definition.keyword.kdoc}
+                    '4': {name: punctuation.definition.tag.end.kdoc}
+                match: '(\{)((\@)docRoot)(\})'
+                name: meta.tag.template.docRoot.kdoc
+            -
+                captures:
+                    '1': {name: punctuation.definition.tag.begin.kdoc}
+                    '2': {name: keyword.other.documentation.directive.inheritDoc.kdoc}
+                    '3': {name: punctuation.definition.keyword.kdoc}
+                    '4': {name: punctuation.definition.tag.end.kdoc}
+                match: '(\{)((\@)inheritDoc)(\})'
+                name: meta.tag.template.inheritDoc.kdoc
+            -
+                captures:
+                    '1': {name: punctuation.definition.tag.begin.kdoc}
+                    '2': {name: keyword.other.documentation.directive.link.kdoc}
+                    '3': {name: punctuation.definition.keyword.kdoc}
+                    '4': {name: markup.underline.link.kdoc}
+                    '5': {name: string.other.link.title.kdoc}
+                    '6': {name: punctuation.definition.tag.end.kdoc}
+                match: '(\{)((\@)link)(?:\s+(\S+?))?(?:\s+(.+?))?\s*(\})'
+                name: meta.tag.template.link.kdoc
+            -
+                captures:
+                    '1': {name: punctuation.definition.tag.begin.kdoc}
+                    '2': {name: keyword.other.documentation.directive.linkplain.kdoc}
+                    '3': {name: punctuation.definition.keyword.kdoc}
+                    '4': {name: markup.underline.linkplain.kdoc}
+                    '5': {name: string.other.link.title.kdoc}
+                    '6': {name: punctuation.definition.tag.end.kdoc}
+                match: '(\{)((\@)linkplain)(?:\s+(\S+?))?(?:\s+(.+?))?\s*(\})'
+                name: meta.tag.template.linkplain.kdoc
+            -
+                captures:
+                    '1': {name: punctuation.definition.tag.begin.kdoc}
+                    '2': {name: keyword.other.documentation.directive.value.kdoc}
+                    '3': {name: punctuation.definition.keyword.kdoc}
+                    '4': {name: variable.other.kdoc}
+                    '5': {name: punctuation.definition.tag.end.kdoc}
+                match: '(\{)((\@)value)\s*(\S+?)?\s*(\})'
+                name: meta.tag.template.value.kdoc
