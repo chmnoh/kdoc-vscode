@@ -1,4 +1,4 @@
-# k-lang README
+# KDoc Syntax Highlighter README
 * The KDoc syntax highlighting support.
 * JavaDoc syntax highlighting based.
 ## Requirements
@@ -12,7 +12,7 @@ Calling out known issues can help limit users opening duplicate issues against y
 Users appreciate release notes as you update your extension.
 
 ### 0.0.1
-* Initital release.
+* Initital release.(in progress)
 
 ### For more information
 * [Visual Studio Code syntax highlighting guide.](https://code.visualstudio.com/api/language-extensions/syntax-highlight-guide)
