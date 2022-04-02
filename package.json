@@ -4,7 +4,7 @@
     "publisher": "chmn-oh",
     "repository": "https://github.com/chmnoh/kdoc-vscode",
     "description": "Syntax highlighting for KDoc",
-    "version": "0.0.1",
+    "version": "0.0.3",
     "engines": {
         "vscode": "^1.60.0"
     },

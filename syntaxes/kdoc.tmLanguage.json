@@ -137,7 +137,14 @@
           },
           "name": "meta.documentation.tag.definition.kdoc",
           "patterns": [
-            []
+            {
+              "match": "(.+)",
+              "captures": {
+                "1": {
+                  "name": "entity.name.type.documentation.example.kdoc"
+                }
+              }
+            }
           ]
         },
         {
@@ -167,7 +174,7 @@
               "match": "(.+)",
               "captures": {
                 "1": {
-                  "name": "markup.raw.documentation.example.kdoc"
+                  "name": "string.other.documentation.example.kdoc"
                 }
               }
             }
